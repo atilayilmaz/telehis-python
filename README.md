@@ -1,5 +1,3 @@
-# Changelog
-
 ## Description (English)
 As of December 14, 2024, the new project team for the 2024-2025 academic year has implemented the following changes to the existing codebase. The code is functional and successfully retrieves data, which is then uploaded to the AWS system as intended. However, there are still several deficiencies in the code. Development efforts to address these deficiencies are ongoing in the `develop` branch and specific `feature` branches.
 

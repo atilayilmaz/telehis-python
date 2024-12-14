@@ -8,6 +8,7 @@ import sys
 import csv
 from awstools import *
 from dtw import read_and_plot_csv
+from MovementMap import getMovementMap as movementMap
 
 
 # ftp = FTPClient('172.20.10.5', 21, 'user', 'password')
@@ -48,14 +49,13 @@ mp_pose = mp.solutions.pose
 xs_time = []
 ys = []
 
-save_folder = r"C:\Users\hacet\PycharmProjects\IMUaug_4_2024\IMU\Veriler"
-#timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
 username = sys.argv[1]
 movement = sys.argv[2]
-timestamp1 = sys.argv[3]
-file_name = f"{username}_{movement}_{timestamp1}.csv"
-file_name_video = f"mp_{username}_{movement}_{timestamp1}.mp4"
-file_name_video_black = f"landmarks_{username}_{movement}_{timestamp1}.mp4"
+timestamp = sys.argv[3]
+save_folder = fr"data/output/{username}_{timestamp}"
+file_name = f"{username}_{movement}_{timestamp}.csv"
+file_name_video = f"mp_{username}_{movement}_{timestamp}.mp4"
+file_name_video_black = f"landmarks_{username}_{movement}_{timestamp}.mp4"
 
 save_file_path = os.path.join(save_folder, file_name)
 save_file_path_video = os.path.join(save_folder, file_name_video)
@@ -172,9 +172,9 @@ video_out_black.release()
 video_out.release()
 cv2.destroyAllWindows()
 
-dtwscore = read_and_plot_csv(f"Veriler/azizideal_{movement}_20240823_1033.csv",
-                             f"Veriler/{username}_{movement}_{timestamp1}.csv",username,movement,timestamp1, showGraphs=False)
-txt_file_path = os.path.join("Veriler", f"dtw_{username}_{movement}_{timestamp1}.txt")
+dtwscore = read_and_plot_csv(f"data/input/movement_{movementMap().get(movement)}.csv",
+                             f"data/output/{username}_{timestamp}/{username}_{movement}_{timestamp}.csv",username,movement,timestamp, showGraphs=False)
+txt_file_path = os.path.join(f"data/output/{username}_{timestamp}", f"dtw_{username}_{movement}_{timestamp}.txt")
 with open(txt_file_path, "w") as file:
     file.write(dtwscore)
 
@@ -185,7 +185,7 @@ with open(txt_file_path, "w") as file:
 #
 # ftp.disconnect()
 
-key_path = "C:\\Users\\hacet\\Downloads\\awskey.pem"
+key_path = "awskey.pem"
 hostname = "15.188.53.33"
 username_aws = "ubuntu"
 
@@ -201,7 +201,7 @@ remote_path = f'project/static/{file_name_video_black}'
 local_path = save_file_path_video_black
 upload_file_to_ec2(local_path, remote_path, key_path, hostname, username_aws)
 
-remote_path = f'project/data/dtwfig_{username}_{movement}_{timestamp1}.png'
-local_path = f"Veriler/dtwfig_{username}_{movement}_{timestamp1}.png"
+remote_path = f'project/data/dtwfig_{username}_{movement}_{timestamp}.png'
+local_path = f"data/output/{username}_{timestamp}/dtwfig_{username}_{movement}_{timestamp}.png"
 upload_file_to_ec2(local_path, remote_path, key_path, hostname, username_aws)
 

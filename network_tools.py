@@ -97,4 +97,4 @@ if __name__ == '__main__':
     else:
         print("The device with the specified MAC address was not found.")
     url = f"http://{ip_address}/events"
-    sse_clients(url,'sensor_data.csv',15)
+    # sse_clients(url,'sensor_data.csv',15)

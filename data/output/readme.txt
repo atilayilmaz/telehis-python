@@ -1,0 +1,1 @@
+Bu dosyada kullanıcıların bilgileri depolanmakta olup, dosya isimleri "kullanıcı adı_tarih_saat" formatında oluşturulmaktadır.

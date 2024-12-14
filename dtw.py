@@ -21,7 +21,7 @@ def scale_and_interpolate(time, data, common_time):
     interpolated_data = np.interp(resampled_time, time, data, left=np.nan, right=np.nan)
 
     # Handle NaNs by filling forward and backward
-    interpolated_data = pd.Series(interpolated_data).fillna(method='ffill').fillna(method='bfill').values
+    interpolated_data = pd.Series(interpolated_data).ffill().bfill().values
 
     return interpolated_data
 
@@ -109,7 +109,7 @@ def read_and_plot_csv(file_path1, file_path2,username,movement,timestamp,showGra
     plt.tight_layout()
 
     if showGraphs==False:
-        img_path = f"Veriler/dtwfig_{username}_{movement}_{timestamp}"
+        img_path = f"data/output/{username}_{timestamp}/dtwfig_{username}_{movement}_{timestamp}"
         plt.savefig(img_path)
         result = f"{dtw_distance_elbow:.3f} {dtw_distance_shoulder:.3f} {dtwavg:.3f}"
         return result

@@ -1,0 +1,12 @@
+# AWS anahtar dosyasını hariç tut
+awskey.pem
+
+# data/output klasöründeki her şeyi hariç tut
+data/output/*
+
+# Sadece readme.txt dosyasını dahil et
+!data/output/readme.txt
+
+# Python __pycache__ klasörünü hariç tut
+__pycache__/
+
